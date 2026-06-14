@@ -246,7 +246,7 @@ with st.sidebar:
     if api_key:
         try:
             genai.configure(api_key=api_key)
-            st.session_state.model = genai.GenerativeModel("gemini-1.5-flash")
+            st.session_state.model = genai.GenerativeModel("gemini-2.0-flash")
             st.session_state.api_configured = True
             st.success("✅ Connected!")
         except Exception as e:
