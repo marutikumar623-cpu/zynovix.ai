@@ -488,9 +488,7 @@ with tab2:
             notes_type = st.radio("Notes type:", ["Short Summary", "Detailed Notes", "Bullet Points", "Mind Map Format"], horizontal=True)
             if st.button("📝 Notes Banao!", key="notes_btn"):
                 if notes_topic.strip():
-                    prompt = f"""Create {notes_type} for the topic: "{notes_topic}"
-Subject: {subject}, Level: {level}, Language: {language}
-Make notes clear, well-structured, include key points, dates/formulas if relevant, and easy to memorize."""
+                    prompt = f"Create {notes_type} for the topic: '{notes_topic}'\nSubject: {subject}, Level: {level}, Language: {language}\nMake notes clear, well-structured, include key points, dates/formulas if relevant, and easy to memorize."
                     with st.spinner("📝 Notes likh raha hoon..."):
                         try:
                             result = call_groq([{"role": "user", "content": prompt}],
@@ -508,16 +506,7 @@ Make notes clear, well-structured, include key points, dates/formulas if relevan
             num_q = st.slider("Kitne questions?", 3, 10, 5)
             if st.button("❓ Quiz Banao!", key="quiz_btn"):
                 if quiz_topic.strip():
-                    prompt = f"""Create a {num_q}-question MCQ quiz on: "{quiz_topic}"
-Subject: {subject}, Level: {level}, Language: {language}
-
-Format each question as:
-Q[n]. [Question]
-A) [option]  B) [option]  C) [option]  D) [option]
-✅ Answer: [correct option]
-💡 Explanation: [brief explanation in 1-2 lines]
-
-Make questions progressively harder."""
+                    prompt = f"Create a {num_q}-question MCQ quiz on: '{quiz_topic}'\nSubject: {subject}, Level: {level}, Language: {language}\n\nFormat each question as:\nQ[n]. [Question]\nA) [option]  B) [option]  C) [option]  D) [option]\nAnswer: [correct option]\nExplanation: [brief explanation in 1-2 lines]\n\nMake questions progressively harder."
                     with st.spinner("❓ Quiz bana raha hoon..."):
                         try:
                             result = call_groq([{"role": "user", "content": prompt}],
@@ -535,7 +524,4 @@ Make questions progressively harder."""
             explain_style = st.radio("Style:", ["Simple (Like I'm 10)", "Standard", "Deep Dive with Examples"], horizontal=True)
             if st.button("💡 Explain Karo!", key="concept_btn"):
                 if concept.strip():
-                    prompt = f"""Explain the concept: "{concept}"
-Style: {explain_style}
-Subject: {subject}, Language: {language}
-Include: definition, real-life example,
+                    prompt = f"Explain the concept: '{concept}'\nStyle: {explain_style}\nSubject: {subject}, Language: {language}\nInclude: definition, real-life example, 
