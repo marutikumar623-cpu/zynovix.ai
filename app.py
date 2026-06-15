@@ -234,7 +234,7 @@ with st.sidebar:
     st.markdown("---")
 
     # API Key
-    st.markdown("**🔑 Gemini API Key**")
+    st.markdown("***Groq API key***")
     api_key = st.text_input(
         "Enter your API key",
         type="password",
@@ -245,8 +245,9 @@ with st.sidebar:
 
     if api_key:
         try:
-            genai.configure(api_key=api_key)
-            st.session_state.model = genai.GenerativeModel("gemini-2.0-flash")
+            from groq import Groq
+            client= Groq(api_key=api_key)
+            st.session_state.model= client 
             st.session_state.api_configured = True
             st.success("✅ Connected!")
         except Exception as e:
