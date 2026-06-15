@@ -263,12 +263,6 @@ with st.sidebar:
     if api_key:
         try:
             client = Groq(api_key=api_key)
-            # Quick test
-            client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[{"role": "user", "content": "hi"}],
-                max_tokens=5,
-            )
             st.session_state.groq_client = client
             st.session_state.api_configured = True
             st.success("✅ Connected!")
@@ -544,52 +538,4 @@ Make questions progressively harder."""
                     prompt = f"""Explain the concept: "{concept}"
 Style: {explain_style}
 Subject: {subject}, Language: {language}
-Include: definition, real-life example, importance/use, common mistakes students make, and a memory trick if possible."""
-                    with st.spinner("💡 Samjha raha hoon..."):
-                        try:
-                            result = call_groq([{"role": "user", "content": prompt}],
-                                              get_system_prompt(subject, level, language))
-                            st.markdown(f"""<div class='chat-bubble-ai'>{result}</div>""", unsafe_allow_html=True)
-                        except Exception as e:
-                            st.error(str(e))
-                else:
-                    st.warning("⚠️ Concept likhoo!")
-
-        # ── MATH ──
-        with tool_tabs[3]:
-            st.markdown("**Math problems step-by-step solve karo!**")
-            math_prob = st.text_area("Math problem likhoo:",
-                placeholder="e.g., Solve: 3x² - 7x + 2 = 0\nor: Find the area of a circle with radius 7cm\nor: Integrate x² + 3x + 2",
-                height=100, key="math_input")
-            if st.button("🔢 Solve Karo!", key="math_btn"):
-                if math_prob.strip():
-                    prompt = f"""Solve this math problem completely:
-"{math_prob}"
-Level: {level}, Language: {language}
-
-Show:
-1. Understanding: What is being asked
-2. Formula/Method used
-3. Step-by-step solution (har step explain karo)
-4. Final Answer (clearly marked ✅)
-5. Verification (if possible)
-6. Similar example for practice"""
-                    with st.spinner("🔢 Solve kar raha hoon..."):
-                        try:
-                            result = call_groq([{"role": "user", "content": prompt}],
-                                              get_system_prompt(subject, level, language))
-                            st.markdown(f"""<div class='chat-bubble-ai'>{result}</div>""", unsafe_allow_html=True)
-                        except Exception as e:
-                            st.error(str(e))
-                else:
-                    st.warning("⚠️ Problem likhoo!")
-
-# ─── FOOTER ─────────────────────────────────────────────────────────────────
-st.markdown("---")
-st.markdown("""
-<div style='text-align:center; color:#9090B0; font-size:0.8rem; padding: 1rem 0;'>
-  🎓 <strong style='color:#6C63FF;'>AI Study Assistant</strong> — Free for all students 🇮🇳<br>
-  Made with ❤️ using Groq AI (Llama 3.3 70B) + Streamlit<br>
-  <span style='font-size:0.7rem;'>Kabhi band nahi hoga • Mobile + Laptop ready • 24/7 available</span>
-</div>
-""", unsafe_allow_html=True)
+Include: definition, real-life example,
